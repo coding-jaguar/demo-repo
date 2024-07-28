@@ -2,21 +2,24 @@ pipeline {
   agent any
 
   stages {
-    stage("build"){
+    stage("build frontend"){
       steps{
         echo "building the application"
+        nodejs() {
+          sh 'npm install'
+          sh 'npm install -g serve'
+          sh 'npm run build'
+        }
       }
     }
-    stage("test"){
-      steps {
-        echo "testing the application"
-      }
-    }
-
-    stage("deploy"){
+    stages("run build"){
       steps{
-        echo "deploying the application"
+        echo "running the application"
+        nodejs() {
+          sh 'serve -s build'
+        }
       }
+
     }
   }
 }
