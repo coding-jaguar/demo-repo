@@ -5,7 +5,7 @@ pipeline {
     stage("build frontend"){
       steps{
         echo "building the application"
-        nodejs() {
+        nodejs(nodeJSInstallationName: 'node-22.5.1') {
           sh 'npm install'
           sh 'npm install -g serve'
           sh 'npm run build'
